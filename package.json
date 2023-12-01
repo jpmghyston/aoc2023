@@ -15,11 +15,14 @@
   "author": "Jake McKenna",
   "license": "ISC",
   "devDependencies": {
+    "@types/lodash": "^4.14.202",
     "@types/node": "^16.11.6",
     "aocrunner": "^1.9.6",
     "prettier": "^2.8.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
   "engines": {
     "node": ">=16.13.0"
   }

@@ -23,30 +23,30 @@ const parseInput = (rawInput: string): Game[] => {
       .split(":")[1]
       .split(";")
       .map((drawString) => {
-        const drawStrings = drawString.split(",").map(x => x.trim());   
+        const drawStrings = drawString.split(",").map((x) => x.trim());
         var reds = 0;
         var greens = 0;
         var blues = 0;
-        drawStrings.forEach(x => {
+        drawStrings.forEach((x) => {
           if (x.indexOf("red") != -1) {
-            reds = Number(x.match(/(\d+)/)?.[1]!)
+            reds = Number(x.match(/(\d+)/)?.[1]!);
           }
           if (x.indexOf("green") != -1) {
-            greens = Number(x.match(/(\d+)/)?.[1]!)
+            greens = Number(x.match(/(\d+)/)?.[1]!);
           }
           if (x.indexOf("blue") != -1) {
-            blues = Number(x.match(/(\d+)/)?.[1]!)
+            blues = Number(x.match(/(\d+)/)?.[1]!);
           }
         });
         return {
           reds,
           greens,
-          blues
-        }
+          blues,
+        };
       });
     return {
       id: gameId,
-      draws
+      draws,
     };
   });
 };
@@ -59,21 +59,23 @@ const gameIsPossible = (game: Game): boolean => {
 };
 
 const gamePower = (game: Game): number => {
-  const maxReds = _.maxBy(game.draws, draw => draw.reds)!.reds;
-  const maxGreens = _.maxBy(game.draws, draw => draw.greens)!.greens;
-  const maxBlues = _.maxBy(game.draws, draw => draw.blues)!.blues;
+  const maxReds = _.maxBy(game.draws, (draw) => draw.reds)!.reds;
+  const maxGreens = _.maxBy(game.draws, (draw) => draw.greens)!.greens;
+  const maxBlues = _.maxBy(game.draws, (draw) => draw.blues)!.blues;
   return maxReds * maxGreens * maxBlues;
-}
+};
 
 const part1 = (rawInput: string) => {
   const input = parseInput(rawInput);
-  return _.sum(input.filter(game => gameIsPossible(game)).map(game => game.id));
+  return _.sum(
+    input.filter((game) => gameIsPossible(game)).map((game) => game.id),
+  );
 };
 
 const part2 = (rawInput: string) => {
   const input = parseInput(rawInput);
 
-  return _.sum(input.map(game => gamePower(game)));
+  return _.sum(input.map((game) => gamePower(game)));
 };
 
 run({

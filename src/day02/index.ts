@@ -68,14 +68,14 @@ const gamePower = (game: Game): number => {
 const part1 = (rawInput: string) => {
   const input = parseInput(rawInput);
   return _.sum(
-    input.filter((game) => gameIsPossible(game)).map((game) => game.id),
+    input.filter(gameIsPossible).map((game) => game.id),
   );
 };
 
 const part2 = (rawInput: string) => {
   const input = parseInput(rawInput);
 
-  return _.sum(input.map((game) => gamePower(game)));
+  return _.sum(input.map(gamePower));
 };
 
 run({

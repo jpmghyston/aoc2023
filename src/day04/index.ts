@@ -3,29 +3,34 @@ import { match } from "assert";
 import _ from "lodash";
 
 type Card = {
-  id: number,
+  id: number;
+  numbersYouHave: number[];
+  winningNumbers: Set<number>;
+  cardValue: number;
+  matchingNumbers: number;
+  part2Value: number | undefined;
+};
+
+const getCardValuePart1 = (
   numbersYouHave: number[],
   winningNumbers: Set<number>,
-  cardValue: number,
-  matchingNumbers: number,
-  part2Value: number | undefined,
-}
-
-const getCardValuePart1 = (numbersYouHave: number[], winningNumbers: Set<number>): number => {
-  const matchingNumbers = numbersYouHave.filter(x => winningNumbers.has(x)).length;
+): number => {
+  const matchingNumbers = numbersYouHave.filter((x) =>
+    winningNumbers.has(x),
+  ).length;
   if (matchingNumbers === 0) {
     return 0;
   }
   if (matchingNumbers === 1) {
-    return 1
+    return 1;
   }
   return 2 ** (matchingNumbers - 1);
-}
+};
 
 const getWonCards = (originalCards: Card[], card: Card): Card[] => {
   const wonCards = originalCards.slice(card.id, card.id + card.matchingNumbers);
   return wonCards;
-}
+};
 
 const getCardValuePart2 = (card: Card, originalCards: Card[]) => {
   if (card.matchingNumbers === 0) {
@@ -35,37 +40,54 @@ const getCardValuePart2 = (card: Card, originalCards: Card[]) => {
     return card.part2Value;
   }
   const wonCards = getWonCards(originalCards, card);
-  const value = _.sum(wonCards.map(wonCard => getCardValuePart2(wonCard, originalCards)));
+  const value = _.sum(
+    wonCards.map((wonCard) => getCardValuePart2(wonCard, originalCards)),
+  );
   card.part2Value = value + 1;
   return value + 1;
-}
+};
 
 const parseInput = (rawInput: string): Card[] => {
-  return rawInput.split("\n").map(line => {
+  return rawInput.split("\n").map((line) => {
     const id = Number(line.match(/Card\s+(\d+):/)![1]);
     const rhs = line.split(":")[1].trim();
-    const numbersYouHave = rhs.split("|")[0].trim().split(" ").map(Number).filter(x => x !== 0);
-    const winningNumbers = new Set(rhs.split("|")[1].trim().split(" ").map(Number).filter(x => x !== 0))
+    const numbersYouHave = rhs
+      .split("|")[0]
+      .trim()
+      .split(" ")
+      .map(Number)
+      .filter((x) => x !== 0);
+    const winningNumbers = new Set(
+      rhs
+        .split("|")[1]
+        .trim()
+        .split(" ")
+        .map(Number)
+        .filter((x) => x !== 0),
+    );
     return {
       id,
       numbersYouHave,
       winningNumbers,
       cardValue: getCardValuePart1(numbersYouHave, winningNumbers),
-      matchingNumbers: numbersYouHave.filter(num => winningNumbers.has(num)).length,
-      part2Value: undefined
-    }
+      matchingNumbers: numbersYouHave.filter((num) => winningNumbers.has(num))
+        .length,
+      part2Value: undefined,
+    };
   });
 };
 
 const part1 = (rawInput: string) => {
   const cards = parseInput(rawInput);
-  return _.sum(cards.map(card => card.cardValue));
+  return _.sum(cards.map((card) => card.cardValue));
 };
 
 const part2 = (rawInput: string) => {
   const originalCards = parseInput(rawInput);
 
-  return _.sum(originalCards.map(card => getCardValuePart2(card, originalCards)));
+  return _.sum(
+    originalCards.map((card) => getCardValuePart2(card, originalCards)),
+  );
 };
 
 run({

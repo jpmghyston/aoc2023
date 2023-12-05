@@ -106,7 +106,15 @@ const part2 = (rawInput: string) => {
     humidityToLocation,
   } = parseInput(rawInput);
   var lowestLocationNumber = Number.MAX_VALUE;
+  var totalSeeds = 0;
+  const qqTotalSeeds = 1807562333;
   for (let i = 0; i < seeds.length; i += 2) {
+    const startSeed = seeds[i];
+    const endSeed = seeds[i] + seeds[i + 1];
+    const numberOfSeeds = endSeed - startSeed;
+    totalSeeds += numberOfSeeds;
+    console.log(`% complete: ${(totalSeeds / qqTotalSeeds) * 100}%`);
+
     for (let seed = seeds[i]; seed < seeds[i] + seeds[i + 1]; seed++) {
       const locationNumber = [seed]
         .map(seedToSoil)

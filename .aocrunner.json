@@ -71,15 +71,15 @@
     {
       "part1": {
         "solved": true,
-        "result": "35",
+        "result": "177942185",
         "attempts": [],
-        "time": 0.113792
+        "time": 0.6417
       },
       "part2": {
-        "solved": false,
-        "result": "46",
+        "solved": true,
+        "result": "69841803",
         "attempts": [],
-        "time": 0.154227
+        "time": 1514367.7246
       }
     },
     {

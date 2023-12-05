@@ -238,7 +238,7 @@ function getMappingFunction(
       };
     });
 
-  const seedToSoil = (input: number) => {
+  const mappingFunction = (input: number) => {
     var output: number | null = null;
     mapEntries.forEach((entry) => {
       const mapped = mapToValue(input, entry);
@@ -248,5 +248,5 @@ function getMappingFunction(
     });
     return output ?? input;
   };
-  return seedToSoil;
+  return mappingFunction;
 }

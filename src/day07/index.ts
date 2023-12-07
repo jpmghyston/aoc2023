@@ -116,18 +116,13 @@ const getHandNamePart1 = (labels: Label[]): HandName => {
   ) {
     return "FourOfAKind";
   }
+  if (cardSetArray.length === 2) {
+    return "FullHouse";
+  }
   if (
     cardSetArray.some((label) => labels.filter((x) => x == label).length === 3)
   ) {
-    if (
-      cardSetArray.some(
-        (label) => labels.filter((x) => x == label).length === 2,
-      )
-    ) {
-      return "FullHouse";
-    } else {
       return "ThreeOfAKind";
-    }
   }
   if (cardSetArray.length === 3) {
     return "TwoPair";

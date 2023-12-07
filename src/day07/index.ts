@@ -1,5 +1,5 @@
 import run from "aocrunner";
-import _, { forEach } from "lodash";
+import _ from "lodash";
 
 type Label =
   | "A"
